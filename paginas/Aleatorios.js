@@ -1,75 +1,32 @@
-var misIds = JSON.parse(localStorage.getItem("misIds")) || [];
+async function MiColeccion() {
+  const root = document.getElementById("root");
+  root.innerHTML = "";
 
-function Aleatorios() {
-  document.getElementById("nuevos").innerHTML = "";
-  let chistesAleatorios = "";
+  const contenedor = document.createElement("div");
+  contenedor.classList.add("c-detalle");
 
-  for (let i = 0; i < 4; i++) {
-    let id = Math.floor(Math.random() * 1000) + 1;
+  contenedor.innerHTML = `
+    <h2>Chistes Aleatorios</h2>
+    <p>Estos chistes se seleccionan al azar desde JokeAPI. ¡Cada vez que entres aquí, verás algo diferente!</p>
+  `;
 
-    fetch(`https://v2.jokeapi.dev/joke/Any?idRange=${id}&blacklistFlags=nsfw,racist,sexist,explicit`)
-      .then(res => res.json())
-      .then(data => {
-        let texto = data.type === "single" ? data.joke : data.setup;
-        chistesAleatorios += `
-          <div class="c-aleatorio" onclick="VerChiste('${data.id}')">
-            <p>#${data.id}</p>
-            <p>${texto}</p>
-            <p><em>${data.category}</em></p>
-          </div>`;
+  const lista = document.createElement("div");
+  lista.classList.add("c-contenedor-lista");
 
-        if (!misIds.includes(data.id)) {
-          misIds.push(data.id);
-          localStorage.setItem("misIds", JSON.stringify(misIds));
-          document.getElementById("c-mi-chiste-" + data.id).innerHTML = `
-            <div onclick="VerChiste('${data.id}')">
-              <p>${texto}</p>
-            </div>`;
-          document.getElementById("c-mi-chiste-" + data.id).classList.add("c-mi-chiste");
-        }
+  const resultado = await conexionLista("Any");
 
-        document.getElementById("nuevos").innerHTML = chistesAleatorios;
-        document.getElementById("contador").innerHTML = `${misIds.length} chistes guardados`;
-      });
-  }
-}
-
-function MiColeccion() {
-  document.getElementById("root").innerHTML = "";
-
-  const seccionAleatorios = document.createElement("section");
-  seccionAleatorios.classList.add("c-lista");
-  seccionAleatorios.id = "nuevos";
-
-  const boton = document.createElement("button");
-  boton.textContent = "4 nuevos chistes";
-  boton.addEventListener("click", () => {
-    Aleatorios();
+  resultado.forEach(joke => {
+    const texto = joke.type === "single" ? joke.joke : joke.setup;
+    const tarjeta = document.createElement("div");
+    tarjeta.classList.add("c-aleatorio");
+    tarjeta.innerHTML = `
+      <p>#${joke.id}</p>
+      <p>${texto}</p>
+      <p><em>${joke.category}</em></p>
+    `;
+    tarjeta.onclick = () => VerChiste(joke.id);
+    lista.appendChild(tarjeta);
   });
 
-  const seccionGuardados = document.createElement("section");
-  seccionGuardados.classList.add("c-lista");
-
-  let misChistes = "";
-  for (let i = 1; i <= 1000; i++) {
-    if (misIds.includes(i)) {
-      misChistes += `
-        <div class="c-mi-chiste poke-${i}" onclick="VerChiste('${i}')">
-          <p>#${i}</p>
-        </div>`;
-    } else {
-      misChistes += `<div class="c-unchiste" id="c-mi-chiste-${i}"><p>${i}</p></div>`;
-    }
-  }
-
-  seccionGuardados.innerHTML = misChistes;
-
-  const contador = document.createElement("p");
-  contador.textContent = `${misIds.length} chistes guardados`;
-  contador.id = "contador";
-
-  document.getElementById("root").appendChild(contador);
-  document.getElementById("root").appendChild(boton);
-  document.getElementById("root").appendChild(seccionAleatorios);
-  document.getElementById("root").appendChild(seccionGuardados);
+  root.append(contenedor, lista);
 }

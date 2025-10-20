@@ -1,9 +1,9 @@
-let pokemones = [];
-let totalPokes = 6;
+let chistes = [];
+let totalchis = 6;
 
 // Conexión para obtener la lista de chistes
 async function conexionLista(filtrotipo) {
-  let url = `https://v2.jokeapi.dev/joke/${filtrotipo}?amount=${totalPokes}&blacklistFlags=nsfw,racist,sexist,explicit`;
+  let url = `https://v2.jokeapi.dev/joke/${filtrotipo}?amount=${totalchis}&blacklistFlags=nsfw,racist,sexist,explicit`;
 
   const res = await fetch(url);
   const data = await res.json();
@@ -18,8 +18,8 @@ async function conexionLista(filtrotipo) {
 
 // Cargar todos los chistes al iniciar
 async function General() {
-  if (pokemones.length === 0) {
-    pokemones = await conexionLista("Any");
+  if (chistes.length === 0) {
+    chistes = await conexionLista("Any");
   }
   Home();
 }
@@ -28,7 +28,7 @@ General();
 
 async function FiltroConexion(Elfiltro) {
   document.getElementById("la-lista").innerHTML = "";
-  pokemones = await conexionLista(Elfiltro);
-  const listaHTML = generarLista(pokemones);
+  chistes = await conexionLista(Elfiltro);
+  const listaHTML = generarLista(chistes);
   document.getElementById("la-lista").innerHTML = listaHTML;
 }

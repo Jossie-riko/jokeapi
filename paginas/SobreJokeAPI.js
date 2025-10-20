@@ -1,12 +1,23 @@
 function SobreJokeAPI() {
   const root = document.getElementById("root");
-  root.innerHTML = `
-    <section class="c-informativa">
-      <h2>¿Qué es JokeAPI?</h2>
-      <p>JokeAPI es una API gratuita que ofrece chistes de diferentes categorías como programación, humor negro, juegos de palabras, navideños y más.</p>
-      <p>Esta app usa JokeAPI para mostrarte chistes aleatorios, filtrarlos por categoría, buscarlos por palabra clave y guardarlos como favoritos.</p>
-      <p>Todos los chistes se obtienen en tiempo real desde <a href="https://jokeapi.dev" target="_blank">jokeapi.dev</a>, sin necesidad de registro ni pago.</p>
-      <p>¡Explora, ríe y guarda tus favoritos!</p>
-    </section>
+  root.innerHTML = "";
+
+  const contenedor = document.createElement("div");
+  contenedor.classList.add("c-detalle");
+
+  contenedor.innerHTML = `
+    <h2>¿Qué es JokeAPI?</h2>
+    <p>
+      JokeAPI es una API pública que permite obtener chistes aleatorios de diferentes categorías como <strong>Programming</strong>, <strong>Misc</strong>, <strong>Dark</strong>, <strong>Pun</strong>, <strong>Spooky</strong> y <strong>Christmas</strong>.
+    </p>
+    <p>
+      Esta app utiliza JokeAPI para mostrar chistes en tiempo real, filtrarlos por tipo y permitirte guardar tus favoritos. Los chistes están en inglés, pero puedes buscar por palabras clave o explorar por categoría.
+    </p>
+    <p>
+      Puedes conocer más sobre la API en su sitio oficial: 
+      <a href="https://jokeapi.dev" target="_blank">jokeapi.dev</a>
+    </p>
   `;
+
+  root.appendChild(contenedor);
 }

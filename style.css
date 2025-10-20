@@ -5,49 +5,96 @@ body {
   color: #333;
 }
 
+header {
+  text-align: center;
+  padding: 10px;
+  background-color: #ffcb42;
+}
+
+.icono-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.icono-app .emoji {
+  font-size: 48px;
+}
+
+.icono-app .nombre-app {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 nav {
   display: flex;
-  justify-content: space-around;
-  background-color: #ffcc00;
-  padding: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 nav button {
   background-color: #fff;
-  border: none;
-  padding: 10px;
+  border: 2px solid #333;
+  padding: 10px 15px;
   font-weight: bold;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .c-buscador {
-  width: 80%;
+  width: 60%;
   margin: 10px auto;
   display: block;
   padding: 8px;
   font-size: 16px;
 }
 
+.c-contenedor-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
 .c-chiste, .c-aleatorio, .c-mi-chiste {
   border: 1px solid #ccc;
-  margin: 10px;
-  padding: 10px;
+  padding: 15px;
   background-color: #fff;
   border-radius: 8px;
   cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.c-chiste:hover {
+  transform: scale(1.02);
+  background-color: #fffde7;
 }
 
 .c-detalle {
+  max-width: 600px;
+  margin: 20px auto;
   padding: 20px;
   background-color: #fff3cd;
   border-radius: 10px;
-  margin: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+
 
 .tipos-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 10px;
   justify-content: center;
   margin: 10px;
+}
+
+.tipos-container button {
+  background-color: #ffecb3;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
 }
